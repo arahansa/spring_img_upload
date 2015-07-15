@@ -1,0 +1,107 @@
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+
+//외부 환경변수 
+ext{
+versions = [
+		jdk:'1.8',
+		spring:'4.1.5.RELEASE',
+		hibernate:'4.3.8.Final',
+		springdatajpa:'1.7.2.RELEASE',
+		springsecurity:'3.2.5.RELEASE',
+		springsocial :'1.1.0.RELEASE'
+	]
+}
+buildDir = 'build'
+//자바 버젼
+sourceCompatibility = versions.jdk
+targetCompatibility = versions.jdk
+//UTF-8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+//리파지토리
+repositories {   mavenCentral() }
+//의존성
+dependencies {
+   //jspPage
+   providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+   runtime "javax.servlet:jstl:1.2"
+   
+   //spring
+   compile("org.springframework:spring-webmvc:${versions.spring}")
+   compile("org.springframework:spring-context:${versions.spring}")
+   compile("org.springframework:spring-context-support:${versions.spring}")
+   //영속화
+   compile("org.springframework.data:spring-data-jpa:${versions.springdatajpa}")
+   compile("org.hibernate:hibernate-core:${versions.hibernate}")
+   compile("org.hibernate:hibernate-entitymanager:${versions.hibernate}")
+   compile("org.hibernate:hibernate-validator:5.1.3.Final")
+   
+   //db
+   compile 'org.apache.commons:commons-dbcp2:2.1'
+   compile("com.zaxxer:HikariCP:2.3.3")
+   compile("com.h2database:h2:1.4.186")
+   compile 'mysql:mysql-connector-java:5.1.34'
+   
+   // file upload & util
+   compile 'commons-fileupload:commons-fileupload:1.3.1'
+   compile 'commons-io:commons-io:2.4'
+   compile 'org.jsoup:jsoup:1.8.2'
+   compile 'org.imgscalr:imgscalr-lib:4.2'
+   compile 'com.sun.media:jai_codec:1.1.2_01'
+   
+    //SiteMesh
+    compile 'org.sitemesh:sitemesh:3.0.0'
+
+    //test
+   testCompile("org.springframework:spring-test:${versions.spring}")
+   testCompile('junit:junit:4.11')
+   
+   
+   //logging
+   	compile "org.slf4j:slf4j-api:1.6.1"
+	compile "org.slf4j:slf4j-log4j12:1.6.1"
+	compile "log4j:log4j:1.2.16"
+     
+}
+
+
+
+//초기 경로 디렉터리 생성
+task initSrc << {
+    project.sourceSets*.allSource.srcDirTrees.flatten().dir.each { dir ->
+        dir.mkdirs()
+    }
+}
+
+
+
+
+/* Eclipse 관련 설정들 */
+tasks.eclipse.dependsOn cleanEclipse
+tasks.eclipse.dependsOn initSrc
+
+eclipse {
+  classpath {
+    downloadSources = true
+    defaultOutputDir = file("${buildDir}/classes/main")
+
+     file {
+            whenMerged { classpath ->
+                def entries = classpath.entries
+                entries.findAll { it.kind == 'lib' }*.exported = false
+          }
+    }
+  }
+  wtp{
+      facet {
+            facet name: 'jst.web', version: '3.1' // Servlet Spec Version 지정
+            facet name: 'jst.java', version: '1.8' // Java Version  1.8
+      }
+  }
+}
+
+
+
+tasks.idea.dependsOn initSrc
+ 
