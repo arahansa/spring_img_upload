@@ -6,7 +6,7 @@
 		<li>주의 : 
 			샘플코드를 핑계로-_-그냥 컨트롤러 하나에 꽉꽉 넣었습니다^.^  <br> 
 			브라우저 버젼별 애로사항이 있을 수도 있습니다.. <br>
-			생각의 흐름대로.. 함수로 안 빼고, 변수 잘 하나로 안 합치로 그때그때 필요한 것 바로 보일 수 있게 적었다.<br>
+			생각의 흐름대로.. 함수로 안 빼고, 변수 잘 하나로 안 합치고 그때그때 필요한 것 바로 보일 수 있게 적었다.<br>
 			문체가 종종 다르다. 
 		</li>
 		
@@ -41,7 +41,7 @@
 	
 	<h3>자료들&링크들</h3>
 	<ul>
-		<li>http://www.youtube.com</li>
+		<li><iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/sI6Plh82Krc" frameborder="0" allowfullscreen></iframe></li>
 		<li>소스주소 <a href="https://github.com/arahansa/spring_img_upload" target="_blank">https://github.com/arahansa/spring_img_upload</a></li>
 		<li>이미지 썸네일 자바 선택 참고 블로그. 경험담이 좋다.^^ : http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/</li>
 		<li>아 그냥 여기로 가자.. ;; http://gubok.tistory.com/423</li>

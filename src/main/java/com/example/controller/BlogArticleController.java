@@ -82,12 +82,13 @@ public class BlogArticleController {
 		LOGGER.debug("file Upload Processing...");
 		for (int i = 0; i < sizeFile; i++) {
 			MultipartFile multipartFile = files.get(i);
-			String nameFile = multipartFile.getOriginalFilename();
+			
 			// 나중에 파일 리스트 업로드 처리를 가정해보자. 파일 리스트가, 1-5번까지 있다고 할 때
 			// 중간에 2, 4 번째 혹은 1,4번에서 파일을 선택안한경우는
 			// 리스트에서 이름이 비게 된다. 이럴 경우를 대비해서 이름을 검사하고 업로드처리시킨다.
+			// 바꿈 : isEmpty 로 바꾸다.아아아;; 
 			// TODO 파일명이 중복되서 업로드 하는 경우를 고려해야함.
-			if (!nameFile.equals("") && nameFile != null) {
+			if (!multipartFile.isEmpty()) {
 				LOGGER.debug("업로드 파일 이름 : {}", multipartFile.getOriginalFilename());
 				String webappRoot = servletContext.getRealPath("/");
 				String filename = webappRoot + UPLOADFILES + multipartFile.getOriginalFilename();
@@ -161,6 +162,8 @@ public class BlogArticleController {
 	@ResponseBody
 	public String imageUpload(MultipartHttpServletRequest request) throws IOException
 	{
+	
+		
 		// 01. 리퀘스트에서 멀티파트파일을 받아서
 		MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
 		List<MultipartFile> list = multiFileMap.get(FILE2);
