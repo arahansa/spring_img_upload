@@ -19,6 +19,7 @@ public class BoardArticle {
     // 파일 업로드를 한 개만 하는 것이 아니라 여러개를 할 수도 있다. 그러므로 리스트 형태를 만들어주자.
     // 파일 중복명을 고려를 해봐야 한다. 하지만 서로 다른 경로에서 같은 파일명을 업로드할 수도 있으므로 Set보다는 List를 사용해보았다.
     // 중복 걸러서 저장하는 것은 추후 생각해보자...
+    // 아... 나중에 Set으로 바뀔 듯하다... 어차피 최종 업로드된 파일명은 전부 유일해야 하니깐-_-..음.. 
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> uploadfiles;
    
